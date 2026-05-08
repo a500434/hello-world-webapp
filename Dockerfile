@@ -3,6 +3,7 @@ FROM golang:alpine AS build-env
 ENV APP hello-world-webbapp
 ENV GOOS linux
 ENV GOARCH amd64
+ENV GO111MODULE=off
 WORKDIR /src
 COPY . .
 RUN CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build -a -o server
