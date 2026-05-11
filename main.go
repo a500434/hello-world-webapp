@@ -21,6 +21,9 @@ var (
 
 func init() {
 	port = os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 }
 
 func main() {
