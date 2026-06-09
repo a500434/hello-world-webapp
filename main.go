@@ -30,7 +30,8 @@ func main() {
 	log.Println("✨ Starting helloworld application from 2026-06-09")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Showing /")
+		ip := getClientIP(r)
+		log.Println("%s is showing /", ip)
 		message := ""
 		user := r.Header.Get("X-Auth-Request-User")
 		if user == "" {
@@ -52,12 +53,14 @@ func main() {
 	})
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Showing health")
+		ip := getClientIP(r)
+		log.Println("%s is showing health", ip)
 		w.WriteHeader(200)
 	})
 
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Showing version")
+		ip := getClientIP(r)
+		log.Println("%s is showing version", ip)
 		fmt.Fprintf(w, version)
 	})
 
@@ -100,5 +103,14 @@ func getIP() (net.IP, error) {
 	}
 
 	return ip, nil
+}
+
+func getClientIP(r *http.Request) string {
+	host, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err == nil {
+		return host
+	}
+
+	return r.RemoteAddr
 }
 //KICK IT
