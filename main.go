@@ -30,6 +30,7 @@ func main() {
 	log.Println("✨ Starting helloworld application from 2026-06-09")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Showing /")
 		message := ""
 		user := r.Header.Get("X-Auth-Request-User")
 		if user == "" {
@@ -51,10 +52,12 @@ func main() {
 	})
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Showing health")
 		w.WriteHeader(200)
 	})
 
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Showing health")
 		fmt.Fprintf(w, version)
 	})
 
