@@ -57,7 +57,7 @@ func main() {
 	})
 
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Showing health")
+		log.Println("Showing version")
 		fmt.Fprintf(w, version)
 	})
 
