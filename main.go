@@ -31,7 +31,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		ip := getClientIP(r)
-		log.Println("%s is showing /", ip)
+		log.Printf("%s is showing /\n", ip)
 		message := ""
 		user := r.Header.Get("X-Auth-Request-User")
 		if user == "" {
@@ -54,13 +54,13 @@ func main() {
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		ip := getClientIP(r)
-		log.Println("%s is showing health", ip)
+		log.Printf("%s is showing health\n", ip)
 		w.WriteHeader(200)
 	})
 
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		ip := getClientIP(r)
-		log.Println("%s is showing version", ip)
+		log.Printf("%s is showing version\n", ip)
 		fmt.Fprintf(w, version)
 	})
 
