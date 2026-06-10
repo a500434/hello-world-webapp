@@ -13,7 +13,7 @@ pool:
 
 steps: 
 
-- task: oc-cmd@2 
+- task: oc-cmd 
 
   inputs: 
 
