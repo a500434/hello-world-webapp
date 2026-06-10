@@ -1,0 +1,89 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+
+
+steps: 
+
+- task: oc-cmd@2 
+
+  inputs: 
+
+    connectionType: 'OpenShift Connection Service' 
+
+    openshiftService: 'aro-delta-lab02' 
+
+    version: '4.2' 
+
+    cmd: 'oc project labtechacademy2' 
+
+  displayName: Switch to labtechacademy2 project 
+
+- task: oc-cmd@2 
+
+  inputs: 
+
+    connectionType: 'OpenShift Connection Service' 
+
+    openshiftService: 'aro-delta-lab02' 
+
+    version: '4.2' 
+
+    cmd: 'oc new-app https://github.com/a500434/hello-world-webapp.git' 
+
+    ignoreFlag: true 
+
+- task: oc-cmd@2 
+
+  inputs: 
+
+    connectionType: 'OpenShift Connection Service' 
+
+    openshiftService: 'aro-delta-lab02' 
+
+    version: '4.2' 
+
+    cmd: 'oc expose svc hello-world-webapp' 
+
+    ignoreFlag: true 
+
+  displayName: Create route 
+
+- task: oc-cmd@2 
+
+  inputs: 
+
+    connectionType: 'OpenShift Connection Service' 
+
+    openshiftService: 'aro-delta-lab02' 
+
+    version: '4.2' 
+
+    cmd: 'oc start-build hello-world-webapp --follow' 
+
+  displayName: Start new build 
+
+- task: oc-cmd@2 
+
+  inputs: 
+
+    connectionType: 'OpenShift Connection Service' 
+
+    openshiftService: 'aro-delta-lab02' 
+
+    version: '4.2' 
+
+    cmd: 'oc status' 
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
